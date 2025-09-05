@@ -1,0 +1,24 @@
+{
+  "isEnabled": true,
+  "rules": [
+    {
+      "name": "MCH Form rules",
+      "path": "rules/mch-forms-rules.drl"
+    },
+    {
+      "name": "COVID 19 Rules",
+      "path": "rules/covid19-forms-rules.drl.xls"
+    }
+  ],
+  "sessionConfigs": [
+    {
+      "sessionId": "Forms",
+      "params": {
+        "name": "patient",
+        "type": "PATIENT_UUID",
+        "required": true
+      },
+      "returnObjectsTypeClassName": "org.openmrs.Form"
+    }
+  ]
+}

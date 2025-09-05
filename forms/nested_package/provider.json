@@ -1,0 +1,20 @@
+{
+  "isEnabled": true,
+  "rules": [
+    {
+      "name": "Other Rules",
+      "path": "rules/some-other-rules.drl"
+    }
+  ],
+  "sessionConfigs": [
+    {
+      "sessionId": "Nested Rules",
+      "params": {
+        "name": "patient",
+        "type": "PATIENT_UUID",
+        "required": false
+      },
+      "returnObjectsTypeClassName": "java.lang.Object"
+    }
+  ]
+}
