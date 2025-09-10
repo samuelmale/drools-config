@@ -2,19 +2,22 @@
   "isEnabled": true,
   "rules": [
     {
-      "name": "Sepsis Rules",
-      "path": "rules/sepsis-rules.drl"
+      "name": "Sepsis rules",
+      "path": "rules/sepsis_rules_table.drl.xlsx"
     }
   ],
   "sessionConfigs": [
     {
       "sessionId": "Sepsis",
-      "params": {
-        "name": "patient",
-        "type": "PATIENT_UUID",
-        "required": true
-      },
-      "returnObjectsTypeClassName": "org.openmrs.module.drools.FlaggedPatient"
+      "agendaGroup": "sepsis",
+      "params": [
+        {
+          "name": "patient",
+          "type": "PATIENT_UUID",
+          "required": true
+        }
+      ],
+      "returnObjectsTypeClassName": "org.openmrs.module.drools.patientflags.FlaggedPatient"
     }
   ]
 }

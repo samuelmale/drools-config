@@ -3,21 +3,18 @@
   "rules": [
     {
       "name": "MCH Form rules",
-      "path": "rules/mch-forms-rules.drl"
-    },
-    {
-      "name": "COVID 19 Rules",
-      "path": "rules/covid19-forms-rules.drl.xls"
+      "path": "rules/mch_form_rules_table.drl.xlsx"
     }
   ],
   "sessionConfigs": [
     {
       "sessionId": "Forms",
-      "params": {
+      "agendaGroup": "forms",
+      "params": [{
         "name": "patient",
         "type": "PATIENT_UUID",
         "required": true
-      },
+      }],
       "returnObjectsTypeClassName": "org.openmrs.Form"
     }
   ]
