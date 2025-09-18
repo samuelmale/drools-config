@@ -1,0 +1,18 @@
+package org.openmrs.module.drools.allergies;
+
+import org.openmrs.Patient;
+import org.openmrs.Allergies;
+import org.openmrs.api.context.Context;
+import java.util.List;
+import java.util.stream.Collectors;
+import static org.openmrs.module.drools.calculation.CalculationUtils.splitValues;
+
+function List getPatientAllergies(Patient patient, org.openmrs.module.drools.calculation.DroolsCalculationService service, String conflictingAllergies) {
+        java.util.List<String> drugAllergies = splitValues(conflictingAllergies);
+        return Context.getPatientService().getAllergies(patient).stream().filter(allergy -> drugAllergies.contains(allergy.getAllergen().toString())).collect(Collectors.toList());
+}
+
+function boolean hasConflictingAllergy(Patient patient, org.openmrs.module.drools.calculation.DroolsCalculationService service, String conflictingAllergies) {
+    java.util.List<String> drugAllergies = splitValues(conflictingAllergies);
+    return Context.getPatientService().getAllergies(patient).stream().anyMatch(allergy -> drugAllergies.contains(allergy.getAllergen().toString()));
+}

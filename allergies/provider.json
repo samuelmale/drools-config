@@ -1,0 +1,32 @@
+{
+  "isEnabled": true,
+  "rules": [
+    {
+      "name": "Drug Allergies",
+      "path": "rules/drug_allergies_rules_table.drl.xlsx"
+    },
+    {
+      "name": "helpers",
+      "path": "rules/helpers.drl"
+    }
+  ],
+  "sessionConfigs": [
+    {
+      "sessionId": "Allergies",
+      "agendaGroup": "allergies",
+      "params": [
+        {
+          "name": "patient",
+          "type": "PATIENT_UUID",
+          "required": true
+        },
+        {
+          "name": "drug",
+          "type": "DRUG_UUID",
+          "required": true
+        }
+      ],
+      "returnObjectsTypeClassName": "org.openmrs.Allergy"
+    }
+  ]
+}

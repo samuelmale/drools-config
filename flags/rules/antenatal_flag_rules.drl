@@ -1,0 +1,40 @@
+package org.openmrs.module.drools.antenatal
+
+import org.openmrs.Patient
+import java.util.Date
+import org.openmrs.module.drools.patientflags.FlaggedPatient
+import org.openmrs.module.drools.calculation.Operator
+import org.openmrs.module.drools.utils.DroolsDateUtils.Granularity
+import static org.openmrs.module.drools.utils.DroolsDateUtils.monthsAgo
+import static org.openmrs.module.drools.utils.DroolsDateUtils.diff
+import static org.openmrs.module.drools.utils.DroolsDateUtils.now	
+
+rule "FundalHeight_BigForAge"
+    agenda-group "antenatal_fundal_height"
+    when
+        $patient: Patient()
+    then
+        Object lmpObj = service.checkObs($patient, "CIEL:1427", Operator.GT, monthsAgo(10)).getValue();
+        Object fhObj  = service.checkObs($patient, "cd7ec9cb-652d-4bec-a002-0619972ddd10", Operator.GT, monthsAgo(10)).getValue();
+
+        if (lmpObj != null && fhObj != null) {
+            java.util.Date lmpDate = (java.util.Date) lmpObj;
+            int fh = ((Number) fhObj).intValue();
+            long ga = diff(lmpDate, now(), Granularity.WEEKS);
+
+            if (fh >= ga + 3) {
+                insert(new FlaggedPatient(
+                    $patient.getId(),
+                    "FH inconsistent with GA: Big for age",
+                    "Order ultrasound for amniotic fluid & fetal size; screen for gestational diabetes."
+                ));
+            } else if (fh <= ga - 3) {
+                insert(new FlaggedPatient(
+                    $patient.getId(),
+                    "FH inconsistent with GA: Small for age",
+                    "Order ultrasound for AFI & growth assessment; monitor blood pressure (rule out preeclampsia)."
+                ));
+            }
+        }
+end
+

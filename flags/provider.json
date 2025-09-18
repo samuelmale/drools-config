@@ -1,0 +1,23 @@
+{
+  "isEnabled": true,
+  "rules": [
+    {
+      "name": "Antenatal flags",
+      "path": "rules/antenatal_flag_rules.drl"
+    }
+  ],
+  "sessionConfigs": [
+    {
+      "sessionId": "Antenatal",
+      "agendaGroup": "antenatal_fundal_height",
+      "params": [
+        {
+          "name": "patient",
+          "type": "PATIENT_UUID",
+          "required": true
+        }
+      ],
+      "returnObjectsTypeClassName": "org.openmrs.module.drools.patientflags.FlaggedPatient"
+    }
+  ]
+}
