@@ -2,7 +2,7 @@ package org.openmrs.module.drools.antenatal
 
 import org.openmrs.Patient
 import java.util.Date
-import org.openmrs.module.drools.patientflags.FlaggedPatient
+import org.openmrs.module.patientflags.PatientFlag
 import org.openmrs.module.drools.calculation.Operator
 import org.openmrs.module.drools.utils.DroolsDateUtils.Granularity
 import static org.openmrs.module.drools.utils.DroolsDateUtils.monthsAgo
@@ -23,16 +23,16 @@ rule "FundalHeight_BigForAge"
             long ga = diff(lmpDate, now(), Granularity.WEEKS);
 
             if (fh >= ga + 3) {
-                insert(new FlaggedPatient(
-                    $patient.getId(),
-                    "FH inconsistent with GA: Big for age",
-                    "Order ultrasound for amniotic fluid & fetal size; screen for gestational diabetes."
+                insert(new PatientFlag(
+                    $patient,
+                    null,
+                    "FH inconsistent with GA: Big for age"
                 ));
             } else if (fh <= ga - 3) {
-                insert(new FlaggedPatient(
-                    $patient.getId(),
-                    "FH inconsistent with GA: Small for age",
-                    "Order ultrasound for AFI & growth assessment; monitor blood pressure (rule out preeclampsia)."
+                insert(new PatientFlag(
+                    $patient,
+                    null,
+                    "FH inconsistent with GA: Small for age"
                 ));
             }
         }

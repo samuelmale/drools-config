@@ -17,7 +17,7 @@
           "required": true
         }
       ],
-      "returnObjectsTypeClassName": "org.openmrs.module.drools.patientflags.FlaggedPatient"
+      "returnObjectsTypeClassName": "org.openmrs.module.patientflags.PatientFlag"
     }
   ]
 }
